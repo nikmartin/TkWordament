@@ -2,7 +2,7 @@
 
 
 def preprocess(in_wordlist):
-        upper_wordlist = map(str.upper, in_wordlist)
+        upper_wordlist = list(map(str.upper, in_wordlist))
 
         seps_wordlist = []
         while True:
@@ -15,7 +15,7 @@ def preprocess(in_wordlist):
                                 if len(points) > 1: redo = True
                         
                         
-                seps_wordlist = filter((lambda(wrd): len(wrd)>=3), seps_wordlist)
+                seps_wordlist = list(filter((lambda wrd: len(wrd)>=3), seps_wordlist))
                 
                 if not redo:    break
                 upper_wordlist = seps_wordlist

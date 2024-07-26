@@ -1,11 +1,12 @@
 
-from portugues import wordlist
-#from english import wordlist
+# from portugues import wordlist
+from english import wordlist
 
 NUM_LINS = 4
 NUM_COLS = 4
 
-def calc_neigbours((lin, col)):
+def calc_neigbours(xxx_todo_changeme):
+        (lin, col) = xxx_todo_changeme
         ret = []
         ret.append((lin-1, col-1))
         ret.append((lin-1, col  ))
@@ -16,21 +17,22 @@ def calc_neigbours((lin, col)):
         ret.append((lin+1, col-1))
         ret.append((lin+1, col  ))
         ret.append((lin+1, col+1))
-        return filter((lambda(pr): pr[0]>=0 and pr[1] >=0 and pr[0]<NUM_LINS and pr[1]<NUM_COLS )  , ret)
+        return list(filter((lambda pr: pr[0]>=0 and pr[1] >=0 and pr[0]<NUM_LINS and pr[1]<NUM_COLS )  , ret))
 
-def findwordsat(wrds, idx, mat, (lin, col)):
+def findwordsat(wrds, idx, mat, xxx_todo_changeme1):
         #print ("findwordsat(..., " + str(idx) + ", ..., (" + str(lin) + ", " + str(col) + ")" + ")")
         #printgame((mat, wrds))
         #print
-        
+
+        (lin, col) = xxx_todo_changeme1
         if (mat[lin][col] == None) or (wrds == []): return []
         from copy import copy
         matrix2pass = copy(mat)
         matrix2pass[lin] = copy(mat[lin])
         matrix2pass[lin][col] = None
-        
-        rets = filter((lambda(wrd): len(wrd)==idx), wrds)
-        words2pass = filter((lambda(wrd): (len(wrd) != idx) and (wrd[idx] == mat[lin][col])), wrds)
+
+        rets = list(filter((lambda wrd: len(wrd)==idx), wrds))
+        words2pass = list(filter((lambda wrd: (len(wrd) != idx) and (wrd[idx] == mat[lin][col])), wrds))
         if words2pass == []: return rets
 
         neigs = calc_neigbours((lin,col))
@@ -54,11 +56,11 @@ def choose_letter(words):
 
 def gentab(words):
         matrix = [[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]
-        
+
         for lin in range(NUM_LINS):
                 for col in range(NUM_COLS):
                         matrix[lin][col] = choose_letter(words)
-                        
+
         return matrix
 
 def gensols(words, matrix):
@@ -80,18 +82,18 @@ def gengame(words, matrix = None):
 def printmat(matrix):
         for lin in range(NUM_LINS):
                 for col in range(NUM_COLS):
-                        print(matrix[lin][col]),
-                print
+                        print((matrix[lin][col]), end=' ')
+                print()
 
 def printgame(game):
         matrix = game[0]
         sols = game[1]
-        
+
         for lin in range(NUM_LINS):
                 for col in range(NUM_COLS):
-                        print(matrix[lin][col]),
-                print
-        
+                        print((matrix[lin][col]), end=' ')
+                print()
+
         print (sols)
 
 
